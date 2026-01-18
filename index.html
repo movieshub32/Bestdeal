@@ -72,9 +72,13 @@
         const numberRef = ref(db, 'contactSettings/whatsappNumber');
 
         onValue(numberRef, (snapshot) => {
-            const number = snapshot.val() || "6285831792142";
-            document.getElementById('displayNumber').innerHTML = `<i class="fas fa-phone-alt"></i> +${number}`;
-            document.getElementById('whatsappBtn').href = `https://wa.me/${number}`;
+            let number = snapshot.val() || "6285831792142";
+            
+            // یہ لائن کسی بھی قسم کی اسپیس یا فالتو نشانات کو ختم کر دے گی
+            let cleanNumber = number.toString().replace(/\s+/g, '').replace(/[^0-9]/g, '');
+
+            document.getElementById('displayNumber').innerHTML = `<i class="fas fa-phone-alt"></i> +${cleanNumber}`;
+            document.getElementById('whatsappBtn').href = `https://wa.me/${cleanNumber}`;
         });
     </script>
 </body>
